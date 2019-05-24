@@ -6,5 +6,11 @@ public class Dictonary {
     String[] ProblemWithCharging= new String[] {"charging", "battery", "charge"};
 
     String Greeting = "Hallo, ich bin Ihr Support-Chatbot, teilen Sie mir Ihre Probleme mit einem unserer Produkte mit und ich versuche Ihnen zu helfen";
-    String LaptopProblem = "laptop";
+
+    //Producttypes
+    String LaptopProblem = "laptop ";
+    //Problemtypes
+    String ChargingProblem = "not charging ";
+    //No Match default
+    String NoMatch = "No Match";
 }

@@ -1,8 +1,9 @@
 public class Support_Bot {
     Dictonary dictonary = new Dictonary();
-    private String Context;
+    private String ContextString = "";
     private String [] UsereingabeArray;
     private String Intent;
+    private String IntentString;
     private String Response;
 
 
@@ -12,30 +13,43 @@ public class Support_Bot {
         Usereingabe = Usereingabe.toLowerCase();
         UsereingabeArray = Usereingabe.split("[\\s \\p{Punct} ]+");
 
-        for (int i =0; i< UsereingabeArray.length; i++){
-        System.out.println(UsereingabeArray[i]);
-        }
-
         return UsereingabeArray;
     }
 
     public String checkForIntent(){
-        if(checkForProduct(UsereingabeArray)){
-            Intent= "Laptop Problem";
+        Intent  = "";
+        checkForProduct(UsereingabeArray);
+        checkForProblem(UsereingabeArray);
 
+        if(Intent.equals("")) {
+            Intent = dictonary.NoMatch;
         }
-        if(checkForProblem(UsereingabeArray)){
-            Intent = "Charging Problem";
 
-        }
         System.out.println(Intent);
+
         return Intent;
     }
 
+    public String getResponse(){
+        Response = "";
+        String IntentPlusContext = Intent + ContextString;
+        if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem)){
+            Response = "Solution for Laptop charging problem";
+            System.out.println(Response);
+
+        }
+
+        ContextString += Intent;
+        return Response;
+
+
+    }
+
     public Boolean checkForProduct(String [] Usereingabe){
-        for(int i =0 ; i < Usereingabe.length; i++){
-            for(int I = 0; i < dictonary.Laptop.length; i++) {
+        for(int i =0 ; i < Usereingabe.length ; i++){
+            for(int I = 0; I < dictonary.Laptop.length; I++) {
                 if (dictonary.Laptop[I].equals(Usereingabe[i])) {
+                    Intent = Intent + dictonary.LaptopProblem;
                     return true;
                 }
             }
@@ -43,16 +57,17 @@ public class Support_Bot {
         return false;
     }
 
+
     public Boolean checkForProblem(String [] Usereingabe){
-        for(int i =0 ; i < Usereingabe.length; i++){
-            for(int I = 0; i < dictonary.ProblemWithCharging.length; i++) {
+        for(int i =0 ; i < Usereingabe.length ; i++){
+            for(int I = 0; I < dictonary.ProblemWithCharging.length; I++) {
                 if (dictonary.ProblemWithCharging[I].equals(Usereingabe[i])) {
+                    Intent = Intent + dictonary.ChargingProblem;
                     return true;
                 }
             }
         }
         return false;
-
     }
 
 
