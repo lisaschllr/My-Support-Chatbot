@@ -3,20 +3,21 @@ public class Main {
 
         //implement interface here;
         //String Usereigabe aus interface übergeben
+
         Support_Bot supportbot = new Support_Bot();
         supportbot.GreetCustomer();
-        supportbot.InsertStringtoArray("not charge");
+        supportbot.InsertStringtoArray("Hello, great,it is about my laptop");
         supportbot.checkForIntent();
         supportbot.getResponse();
-        supportbot.InsertStringtoArray("laptop");
+        supportbot.InsertStringtoArray("my laptop is not charging anymore");
         supportbot.checkForIntent();
         supportbot.getResponse();
-        supportbot.InsertStringtoArray("no");
+        supportbot.InsertStringtoArray("yeah");
         supportbot.checkForIntent();
         supportbot.getResponse();
-        supportbot.InsertStringtoArray("no");
+        /*supportbot.InsertStringtoArray("no");
         supportbot.checkForIntent();
-        supportbot.getResponse();
+        supportbot.getResponse();*/
 
 
 

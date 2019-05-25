@@ -14,6 +14,7 @@ public class Support_Bot {
         return  Greeting;
     }
     public String[] InsertStringtoArray(String Usereingabe){
+        System.out.println("Customer: " + Usereingabe);
         Usereingabe = Usereingabe.toLowerCase();
         UsereingabeArray = Usereingabe.split("[\\s \\p{Punct} ]+");
 
@@ -31,7 +32,7 @@ public class Support_Bot {
             Intent = dictonary.NoMatch;
         }
 
-        System.out.println(Intent);
+        System.out.println("-->"+ Intent);
 
         return Intent;
     }
@@ -43,8 +44,8 @@ public class Support_Bot {
         if(IntentPlusContext.equals(dictonary.NoMatch)){
             Response = "Es tut mir leid, ich habe Sie nicht verstanden. Um welches Produkt handelt es sich?";
         }
-        if (IntentPlusContext.equals(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
-            Response = "Es tut mit leid, dieses Produkt kenne ich nicht. Ich leite Sie aber gerne an einen Mitarbeiter weiter";
+        if (IntentPlusContext.contains(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
+            Response = "Es tut mit leid, ich kann Ihnen leider nicht weiter helfen. Ich leite Sie aber gerne an einen Mitarbeiter weiter";
         }
         if(IntentPlusContext.equals(dictonary.LaptopProblem)){
             Response = "Whats the Problem with your laptop?";
@@ -53,7 +54,7 @@ public class Support_Bot {
             Response = "Which of our Products is not charging?";
         }
         if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem) | IntentPlusContext.equals( dictonary.ChargingProblem + dictonary.LaptopProblem)){
-            Response = "Solution for Laptop charging problem";
+            Response = "[Solution for Laptop charging problem]. Was it working?";
             ContextString += dictonary.Solution;
         }
 
@@ -65,7 +66,7 @@ public class Support_Bot {
         if(IntentPlusContext.contains(dictonary.SolutionNotWorking)){
             if(IntentPlusContext.contains(dictonary.LaptopProblem)){
                 if(IntentPlusContext.contains(dictonary.ChargingProblem)){
-                    Response = "Alternative Solution";
+                    Response = "[Alternative Solution]. Was it working?";
                     ContextString += dictonary.Solution2;
                 }
             }
@@ -85,8 +86,10 @@ public class Support_Bot {
         for(int i =0 ; i < Usereingabe.length ; i++){
             for(int I = 0; I < dictonary.Laptop.length; I++) {
                 if (dictonary.Laptop[I].equals(Usereingabe[i])) {
-                    Intent = Intent + dictonary.LaptopProblem;
-                    return true;
+                    if(!ContextString.contains(dictonary.LaptopProblem)) {
+                        Intent = Intent + dictonary.LaptopProblem;
+                        return true;
+                    }
                 }
             }
         }
@@ -98,8 +101,10 @@ public class Support_Bot {
         for(int i =0 ; i < Usereingabe.length ; i++){
             for(int I = 0; I < dictonary.ProblemWithCharging.length; I++) {
                 if (dictonary.ProblemWithCharging[I].equals(Usereingabe[i])) {
-                    Intent = Intent + dictonary.ChargingProblem;
-                    return true;
+                    if(!ContextString.contains(dictonary.ChargingProblem)) {
+                        Intent = Intent + dictonary.ChargingProblem;
+                        return true;
+                    }
                 }
             }
         }
