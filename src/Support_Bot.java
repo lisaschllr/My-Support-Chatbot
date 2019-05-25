@@ -8,7 +8,11 @@ public class Support_Bot {
 
 
 
-
+    public String GreetCustomer(){
+        String Greeting = dictonary.Greeting;
+        System.out.println(Greeting);
+        return  Greeting;
+    }
     public String[] InsertStringtoArray(String Usereingabe){
         Usereingabe = Usereingabe.toLowerCase();
         UsereingabeArray = Usereingabe.split("[\\s \\p{Punct} ]+");
@@ -20,6 +24,8 @@ public class Support_Bot {
         Intent  = "";
         checkForProduct(UsereingabeArray);
         checkForProblem(UsereingabeArray);
+        checkForSolutionWorking(UsereingabeArray);
+        checkForSolution2Working(UsereingabeArray);
 
         if(Intent.equals("")) {
             Intent = dictonary.NoMatch;
@@ -32,14 +38,44 @@ public class Support_Bot {
 
     public String getResponse(){
         Response = "";
-        String IntentPlusContext = Intent + ContextString;
-        if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem)){
+        String IntentPlusContext = ContextString + Intent;
+        ContextString += Intent;
+        if(IntentPlusContext.equals(dictonary.NoMatch)){
+            Response = "Es tut mir leid, ich habe Sie nicht verstanden. Um welches Produkt handelt es sich?";
+        }
+        if (IntentPlusContext.equals(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
+            Response = "Es tut mit leid, dieses Produkt kenne ich nicht. Ich leite Sie aber gerne an einen Mitarbeiter weiter";
+        }
+        if(IntentPlusContext.equals(dictonary.LaptopProblem)){
+            Response = "Whats the Problem with your laptop?";
+        }
+        if (IntentPlusContext.equals(dictonary.ChargingProblem)) {
+            Response = "Which of our Products is not charging?";
+        }
+        if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem) | IntentPlusContext.equals( dictonary.ChargingProblem + dictonary.LaptopProblem)){
             Response = "Solution for Laptop charging problem";
-            System.out.println(Response);
+            ContextString += dictonary.Solution;
+        }
+
+        if(IntentPlusContext.contains(dictonary.SolutionWorking)|IntentPlusContext.contains(dictonary.Solution2Working)){
+            Response = "Dann wünsche ich Ihnen noch einen schönen Tag und viel Spaß mit unserem Produkt";
 
         }
 
-        ContextString += Intent;
+        if(IntentPlusContext.contains(dictonary.SolutionNotWorking)){
+            if(IntentPlusContext.contains(dictonary.LaptopProblem)){
+                if(IntentPlusContext.contains(dictonary.ChargingProblem)){
+                    Response = "Alternative Solution";
+                    ContextString += dictonary.Solution2;
+                }
+            }
+        }
+
+
+
+
+
+        System.out.println(Response);
         return Response;
 
 
@@ -64,6 +100,40 @@ public class Support_Bot {
                 if (dictonary.ProblemWithCharging[I].equals(Usereingabe[i])) {
                     Intent = Intent + dictonary.ChargingProblem;
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public Boolean checkForSolutionWorking (String []Usereingabe){
+        String IntentPlusContext = ContextString + Intent;
+        if(IntentPlusContext.contains(dictonary.Solution)) {
+            for (int i = 0; i < Usereingabe.length; i++) {
+                for (int I = 0; I < dictonary.goodKeyword.length; I++) {
+                    if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
+                        Intent = Intent + dictonary.SolutionWorking;
+                        return true;
+                    }else {
+                        Intent = Intent + dictonary.SolutionNotWorking;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public Boolean checkForSolution2Working (String []Usereingabe){
+        String IntentPlusContext = ContextString + Intent;
+        if(IntentPlusContext.contains(dictonary.Solution2)) {
+            for (int i = 0; i < Usereingabe.length; i++) {
+                for (int I = 0; I < dictonary.goodKeyword.length; I++) {
+                    if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
+                        ContextString = dictonary.Solution2Working;
+                        return true;
+                    }else {
+                        ContextString = dictonary.Solution2NotWorking;
+                    }
                 }
             }
         }
