@@ -32,7 +32,7 @@ public class Support_Bot {
             Intent = dictonary.NoMatch;
         }
 
-        System.out.println("-->"+ Intent);
+       //System.out.println("-->"+ Intent);
 
         return Intent;
     }
@@ -42,10 +42,10 @@ public class Support_Bot {
         String IntentPlusContext = ContextString + Intent;
         ContextString += Intent;
         if(IntentPlusContext.equals(dictonary.NoMatch)){
-            Response = "Es tut mir leid, ich habe Sie nicht verstanden. Um welches Produkt handelt es sich?";
+            Response = "I am sorry, I don't understand you. Which of our products are you talking about?";
         }
         if (IntentPlusContext.contains(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
-            Response = "Es tut mit leid, ich kann Ihnen leider nicht weiter helfen. Ich leite Sie aber gerne an einen Mitarbeiter weiter";
+            Response = "I am so sorry, I am not able to help you with your problem. However, I will gladly forward you to a member of staff";
         }
         if(IntentPlusContext.equals(dictonary.LaptopProblem)){
             Response = "Whats the Problem with your laptop?";
@@ -59,7 +59,7 @@ public class Support_Bot {
         }
 
         if(IntentPlusContext.contains(dictonary.SolutionWorking)|IntentPlusContext.contains(dictonary.Solution2Working)){
-            Response = "Dann wünsche ich Ihnen noch einen schönen Tag und viel Spaß mit unserem Produkt";
+            Response = "Then I wish you a nice day and a lot of fun with our product.";
 
         }
 
@@ -71,9 +71,6 @@ public class Support_Bot {
                 }
             }
         }
-
-
-
 
 
         System.out.println(Response);
@@ -88,8 +85,10 @@ public class Support_Bot {
                 if (dictonary.Laptop[I].equals(Usereingabe[i])) {
                     if(!ContextString.contains(dictonary.LaptopProblem)) {
                         Intent = Intent + dictonary.LaptopProblem;
+                        resetNoMatch();
                         return true;
                     }
+
                 }
             }
         }
@@ -103,6 +102,7 @@ public class Support_Bot {
                 if (dictonary.ProblemWithCharging[I].equals(Usereingabe[i])) {
                     if(!ContextString.contains(dictonary.ChargingProblem)) {
                         Intent = Intent + dictonary.ChargingProblem;
+                        resetNoMatch();
                         return true;
                     }
                 }
@@ -117,10 +117,15 @@ public class Support_Bot {
             for (int i = 0; i < Usereingabe.length; i++) {
                 for (int I = 0; I < dictonary.goodKeyword.length; I++) {
                     if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
-                        Intent = Intent + dictonary.SolutionWorking;
+                        Intent = dictonary.SolutionWorking;
                         return true;
-                    }else {
+                    }
+                }
+                for (int I = 0; I < dictonary.badKeyword.length; I++) {
+                    if (dictonary.badKeyword[I].equals(Usereingabe[i])){
                         Intent = Intent + dictonary.SolutionNotWorking;
+                        resetNoMatch();
+                        return false;
                     }
                 }
             }
@@ -136,8 +141,12 @@ public class Support_Bot {
                     if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
                         ContextString = dictonary.Solution2Working;
                         return true;
-                    }else {
+                    }
+                }
+                for (int I = 0; I < dictonary.badKeyword.length; I++) {
+                    if (dictonary.badKeyword[I].equals(Usereingabe[i])) {
                         ContextString = dictonary.Solution2NotWorking;
+                        return true;
                     }
                 }
             }
@@ -145,6 +154,11 @@ public class Support_Bot {
         return false;
     }
 
+    public void resetNoMatch(){
+        if(ContextString.contains(dictonary.NoMatch)){
+           ContextString = ContextString.replaceAll(dictonary.NoMatch, "");
+        }
+    }
 
 
 
