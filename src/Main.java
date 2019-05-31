@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+
 public class Main {
     public static void main (String[]args){
 
@@ -6,21 +11,19 @@ public class Main {
 
         Support_Bot supportbot = new Support_Bot();
         supportbot.GreetCustomer();
-        supportbot.InsertStringtoArray("hi, my lapto");
-        supportbot.checkForIntent();
-        supportbot.getResponse();
-        supportbot.InsertStringtoArray("hi, my laptop");
-        supportbot.checkForIntent();
-        supportbot.getResponse();
-        supportbot.InsertStringtoArray("my laptop is not charging anymore");
-        supportbot.checkForIntent();
-        supportbot.getResponse();
-        supportbot.InsertStringtoArray("no");
-        supportbot.checkForIntent();
-        supportbot.getResponse();
-        supportbot.InsertStringtoArray("yes");
-        supportbot.checkForIntent();
-        supportbot.getResponse();
+        try {
+            InputStreamReader in = new InputStreamReader(System.in);
+            BufferedReader br = new BufferedReader(in);
+            String a;
+            while( (a = br.readLine()) != null) {
+                if(a.equals("exit")){break;}
+                supportbot.InsertStringtoArray(a);
+            supportbot.checkForIntent();
+            supportbot.getResponse();
+            }
+        }catch(Exception e){
+        }
+
 
 
 

@@ -3,9 +3,7 @@ public class Support_Bot {
     private String ContextString = "";
     private String [] UsereingabeArray;
     private String Intent;
-    private String IntentString;
     private String Response;
-
 
 
     public String GreetCustomer(){
@@ -14,7 +12,7 @@ public class Support_Bot {
         return  Greeting;
     }
     public String[] InsertStringtoArray(String Usereingabe){
-        System.out.println("Customer: " + Usereingabe);
+        //System.out.println("Customer: " + Usereingabe);
         Usereingabe = Usereingabe.toLowerCase();
         UsereingabeArray = Usereingabe.split("[\\s \\p{Punct} ]+");
 
@@ -41,8 +39,8 @@ public class Support_Bot {
         Response = "";
         String IntentPlusContext = ContextString + Intent;
         ContextString += Intent;
-        if(IntentPlusContext.equals(dictonary.NoMatch)){
-            Response = "I am sorry, I don't understand you. Which of our products are you talking about?";
+        if(IntentPlusContext.contains(dictonary.NoMatch)){
+            Response = "I am sorry, I don't understand you. Could you please repeat the productname oder the problem?";
         }
         if (IntentPlusContext.contains(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
             Response = "I am so sorry, I am not able to help you with your problem. However, I will gladly forward you to a member of staff";
