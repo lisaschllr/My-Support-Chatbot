@@ -1,7 +1,7 @@
 public class Support_Bot {
     Dictonary dictonary = new Dictonary();
     private String ContextString = "";
-    private String [] UsereingabeArray;
+    private String [] InsertArray;
     private String Intent;
     private String Response;
 
@@ -11,20 +11,20 @@ public class Support_Bot {
         System.out.println(Greeting);
         return  Greeting;
     }
-    public String[] InsertStringtoArray(String Usereingabe){
-        //System.out.println("Customer: " + Usereingabe);
-        Usereingabe = Usereingabe.toLowerCase();
-        UsereingabeArray = Usereingabe.split("[\\s \\p{Punct} ]+");
+    public String[] InsertStringtoArray(String UserInsert){
+        //System.out.println("Customer: " + UserInsert);
+        UserInsert = UserInsert.toLowerCase();
+        InsertArray = UserInsert.split("[\\s \\p{Punct} ]+");
 
-        return UsereingabeArray;
+        return InsertArray;
     }
 
     public String checkForIntent(){
         Intent  = "";
-        checkForProduct(UsereingabeArray);
-        checkForProblem(UsereingabeArray);
-        checkForSolutionWorking(UsereingabeArray);
-        checkForSolution2Working(UsereingabeArray);
+        checkForProduct(InsertArray);
+        checkForProblem(InsertArray);
+        checkForSolutionWorking(InsertArray);
+        checkForSolution2Working(InsertArray);
 
         if(Intent.equals("")) {
             Intent = dictonary.NoMatch;
@@ -57,7 +57,7 @@ public class Support_Bot {
         }
 
         if(IntentPlusContext.contains(dictonary.SolutionWorking)|IntentPlusContext.contains(dictonary.Solution2Working)){
-            Response = "Then I wish you a nice day and a lot of fun with our product.";
+            Response = "Then I wish you a nice day and a lot of fun with our product. Goodbye!";
 
         }
 
@@ -77,10 +77,10 @@ public class Support_Bot {
 
     }
 
-    public Boolean checkForProduct(String [] Usereingabe){
-        for(int i =0 ; i < Usereingabe.length ; i++){
+    public Boolean checkForProduct(String [] UserInsert){
+        for(int i =0 ; i < UserInsert.length ; i++){
             for(int I = 0; I < dictonary.Laptop.length; I++) {
-                if (dictonary.Laptop[I].equals(Usereingabe[i])) {
+                if (dictonary.Laptop[I].equals(UserInsert[i])) {
                     if(!ContextString.contains(dictonary.LaptopProblem)) {
                         Intent = Intent + dictonary.LaptopProblem;
                         resetNoMatch();
@@ -94,10 +94,10 @@ public class Support_Bot {
     }
 
 
-    public Boolean checkForProblem(String [] Usereingabe){
-        for(int i =0 ; i < Usereingabe.length ; i++){
+    public Boolean checkForProblem(String [] UserInsert){
+        for(int i =0 ; i < UserInsert.length ; i++){
             for(int I = 0; I < dictonary.ProblemWithCharging.length; I++) {
-                if (dictonary.ProblemWithCharging[I].equals(Usereingabe[i])) {
+                if (dictonary.ProblemWithCharging[I].equals(UserInsert[i])) {
                     if(!ContextString.contains(dictonary.ChargingProblem)) {
                         Intent = Intent + dictonary.ChargingProblem;
                         resetNoMatch();
@@ -109,18 +109,18 @@ public class Support_Bot {
         return false;
     }
 
-    public Boolean checkForSolutionWorking (String []Usereingabe){
+    public Boolean checkForSolutionWorking (String []UserInsert){
         String IntentPlusContext = ContextString + Intent;
         if(IntentPlusContext.contains(dictonary.Solution)) {
-            for (int i = 0; i < Usereingabe.length; i++) {
+            for (int i = 0; i < UserInsert.length; i++) {
                 for (int I = 0; I < dictonary.goodKeyword.length; I++) {
-                    if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
+                    if (dictonary.goodKeyword[I].equals(UserInsert[i])) {
                         Intent = dictonary.SolutionWorking;
                         return true;
                     }
                 }
                 for (int I = 0; I < dictonary.badKeyword.length; I++) {
-                    if (dictonary.badKeyword[I].equals(Usereingabe[i])){
+                    if (dictonary.badKeyword[I].equals(UserInsert[i])){
                         Intent = Intent + dictonary.SolutionNotWorking;
                         resetNoMatch();
                         return false;
@@ -131,18 +131,18 @@ public class Support_Bot {
         return false;
     }
 
-    public Boolean checkForSolution2Working (String []Usereingabe){
+    public Boolean checkForSolution2Working (String []UserInsert){
         String IntentPlusContext = ContextString + Intent;
         if(IntentPlusContext.contains(dictonary.Solution2)) {
-            for (int i = 0; i < Usereingabe.length; i++) {
+            for (int i = 0; i < UserInsert.length; i++) {
                 for (int I = 0; I < dictonary.goodKeyword.length; I++) {
-                    if (dictonary.goodKeyword[I].equals(Usereingabe[i])) {
+                    if (dictonary.goodKeyword[I].equals(UserInsert[i])) {
                         ContextString = dictonary.Solution2Working;
                         return true;
                     }
                 }
                 for (int I = 0; I < dictonary.badKeyword.length; I++) {
-                    if (dictonary.badKeyword[I].equals(Usereingabe[i])) {
+                    if (dictonary.badKeyword[I].equals(UserInsert[i])) {
                         ContextString = dictonary.Solution2NotWorking;
                         return true;
                     }
@@ -156,6 +156,17 @@ public class Support_Bot {
         if(ContextString.contains(dictonary.NoMatch)){
            ContextString = ContextString.replaceAll(dictonary.NoMatch, "");
         }
+    }
+
+    public boolean sayGoodbye(String UserInsert){
+                for (int I = 0; I < dictonary.End.length; I++) {
+                    if (UserInsert.contains(dictonary.End[I])) {
+                        return true;
+                    }
+                }
+
+        return false;
+
     }
 
 

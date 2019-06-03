@@ -1,9 +1,10 @@
 public class Dictonary {
 
     String[] Laptop = new String[] {"laptop", "notebook"};
-    String[] badKeyword = new String[] {"no"};
+    String[] badKeyword = new String[] {"no", "not"};
     String[] goodKeyword = new String[] {"yes", "yeah", "great"};
-    String[] ProblemWithCharging= new String[] {"charging", "battery", "charge"};
+    String[] ProblemWithCharging= new String[] {"charging", "charge","charged","load", "loading", "battery", "accumulator", "charger", "recharger", "loader"};
+    String[] End = new String[] {"bye", "goodbye", "thanks", "thank you"};
 
     String Greeting = "Hi, I am your support chatbot, tell me your problems with one of our products and I will try to help you.";
 
