@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+
 
 public class Main {
     public static void main (String[]args){
@@ -22,6 +21,7 @@ public class Main {
             supportbot.getResponse();
             }
         }catch(Exception e){
+            e.printStackTrace();
         }
 
 
