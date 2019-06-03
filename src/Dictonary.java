@@ -27,4 +27,8 @@ public class Dictonary {
     String Solution2NotWorking = "Solution2 was not working ";
     //Solution2 working
     String Solution2Working = "Solution2 was working ";
+
+    //Responses:
+
+    String LaptopNotChargingSolution1 = "If necessary, switch off the laptop and remove the battery. When you remove the battery, clean the contacts with a soft cloth or household paper. After cleaning, put it back in and see if it is charging. Was it working?";
 }

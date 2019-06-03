@@ -34,7 +34,7 @@ public class Support_Bot {
         String IntentPlusContext = ContextString + Intent;
         ContextString += Intent;
         if(IntentPlusContext.contains(dictonary.NoMatch)){
-            Response = "I am sorry, I don't understand you. Could you please repeat the productname oder the problem?";
+            Response = "I am sorry, I don't understand you. Could you please repeat the productname and the problem?";
         }
         if (IntentPlusContext.contains(dictonary.NoMatch + dictonary.NoMatch)|IntentPlusContext.contains((dictonary.Solution2NotWorking))) {
             Response = "I am so sorry, I am not able to help you with your problem. However, I will gladly forward you to a member of staff";
@@ -46,7 +46,7 @@ public class Support_Bot {
             Response = "Which of our Products is not charging?";
         }
         if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem) | IntentPlusContext.equals( dictonary.ChargingProblem + dictonary.LaptopProblem)){
-            Response = "[Solution for Laptop charging problem]. Was it working?";
+            Response = "If necessary, switch off the laptop and remove the battery. \nWhen you remove the battery, clean the contacts with a soft cloth or household paper.\nAfter cleaning, put it back in and see if it is charging.\nWas it working?";
             ContextString += dictonary.Solution;
         }
 
@@ -58,7 +58,7 @@ public class Support_Bot {
         if(IntentPlusContext.contains(dictonary.SolutionNotWorking)){
             if(IntentPlusContext.contains(dictonary.LaptopProblem)){
                 if(IntentPlusContext.contains(dictonary.ChargingProblem)){
-                    Response = "[Alternative Solution]. Was it working?";
+                    Response = "Maybe it's a problem with the driver. Try uninstalling the driver.\nWas it working?";
                     ContextString += dictonary.Solution2;
                 }
             }
