@@ -46,7 +46,7 @@ public class Support_Bot {
             Response = "Which of our Products is not charging?";
         }
         if(IntentPlusContext.equals(dictonary.LaptopProblem + dictonary.ChargingProblem) | IntentPlusContext.equals( dictonary.ChargingProblem + dictonary.LaptopProblem)){
-            Response = "If necessary, switch off the laptop and remove the battery. \nWhen you remove the battery, clean the contacts with a soft cloth or household paper.\nAfter cleaning, put it back in and see if it is charging.\nWas it working?";
+            Response = dictonary.LaptopNotChargingSolution1;
             ContextString += dictonary.Solution;
         }
 
@@ -58,7 +58,7 @@ public class Support_Bot {
         if(IntentPlusContext.contains(dictonary.SolutionNotWorking)){
             if(IntentPlusContext.contains(dictonary.LaptopProblem)){
                 if(IntentPlusContext.contains(dictonary.ChargingProblem)){
-                    Response = "Maybe it's a problem with the driver. Try uninstalling the driver.\nWas it working?";
+                    Response = dictonary.LaptopNotChargingSolution2;
                     ContextString += dictonary.Solution2;
                 }
             }

@@ -30,5 +30,6 @@ public class Dictonary {
 
     //Responses:
 
-    String LaptopNotChargingSolution1 = "If necessary, switch off the laptop and remove the battery. When you remove the battery, clean the contacts with a soft cloth or household paper. After cleaning, put it back in and see if it is charging. Was it working?";
+    String LaptopNotChargingSolution1 = "If necessary, switch off the laptop and remove the battery. \nWhen you remove the battery, clean the contacts with a soft cloth or household paper.\nAfter cleaning, put it back in and see if it is charging.\nWas it working?";
+    String LaptopNotChargingSolution2 = "If necessary, switch off the laptop and remove the battery. \nWhen you remove the battery, clean the contacts with a soft cloth or household paper.\nAfter cleaning, put it back in and see if it is charging.\nWas it working?";
 }
